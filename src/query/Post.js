@@ -8,13 +8,13 @@ export default {
     posts: {
         type: new GraphQLList(postType),
             resolve:
-        (_, {}) => {
+        async (_, {}) => {
             /*let posts = fakeDatabase.getBlogPosts();
             posts.forEach((post) => {
                 post.author = fakeDatabase.getAuthor(post.author)
             });*/
             let posts;
-            return posts = mongosedb.getBlogPosts();
+            return posts = await mongosedb.getBlogPosts();
         }
     },
     post: {
@@ -22,7 +22,7 @@ export default {
         args: {
             id: {type: GraphQLInt}
         },
-        resolve: (_, {id}) => {
+        resolve: async (_, {id}) => {
             return fakeDatabase.getBlogPost(id);
         }
     },

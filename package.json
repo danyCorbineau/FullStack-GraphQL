@@ -26,6 +26,8 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "factory-girl": "^5.0.4",
+    "factory-girl-mongoose": "^1.0.0",
     "graphql": "^0.10.5",
     "mongoose": "^5.8.12"
   }

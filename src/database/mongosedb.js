@@ -13,18 +13,21 @@ class Mongosedb {
         });
     }
 
-    getBlogPosts() {
+    async getBlogPosts() {
         // Here you would make a db connection + query + return data
         return post.find()
-            .select('_id title').exec();
+            .select('_id title author').exec();
     }
 
-    /*getBlogPost(id) {
-        return post.filter((post) => {
-            return post.id === id;
-        })[0];
+    async getBlogPost(id) {
+        return post.find({_id: id}).select('_id title author').exec();
     }
 
+    async getAuthor(id) {
+        return author.find({_id: id}).select('_id name').exec();
+    }
+
+        /*
     getAuthor(authorId) {
         return this.authors.filter((author) => {
             return author.id === authorId;

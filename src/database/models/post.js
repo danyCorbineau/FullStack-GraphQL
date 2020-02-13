@@ -7,5 +7,5 @@ let schema = new mongoose.Schema({
        type: Schema.Types.ObjectID, ref: 'Author'
    }
 });
-
-export default mongoose.model('Post', schema, 'post');
+const model = mongoose.model('Post', schema, 'post')
+module.exports = model;
