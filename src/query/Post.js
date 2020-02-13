@@ -1,6 +1,8 @@
 import {GraphQLList} from "graphql";
-import {fakeDatabase} from "../FakeDatabase";
+import {fakeDatabase} from "../database/FakeDatabase";
 import postType from "../types/Post";
+import {GraphQLInt} from "graphql/type";
+import mongosedb from "../database/mongosedb";
 
 export default {
     posts: {
@@ -12,8 +14,16 @@ export default {
                 post.author = fakeDatabase.getAuthor(post.author)
             });*/
             let posts;
-            return posts = fakeDatabase.getBlogPosts();
-            ;
+            return posts = mongosedb.getBlogPosts();
         }
-    }
+    },
+    post: {
+        type: postType,
+        args: {
+            id: {type: GraphQLInt}
+        },
+        resolve: (_, {id}) => {
+            return fakeDatabase.getBlogPost(id);
+        }
+    },
 }
