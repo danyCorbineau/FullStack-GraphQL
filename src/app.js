@@ -9,7 +9,7 @@ app.use(cors());
 
 app.use('/graphql', graphqlHTTP({
   schema: schema,
-  graphiql: true
+  graphql: true
 }));
 
 export default app;

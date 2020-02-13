@@ -1,6 +1,7 @@
 import {GraphQLList} from "graphql";
 import {fakeDatabase} from "../FakeDatabase";
 import postType from "../types/Post";
+import {GraphQLInt} from "graphql/type";
 
 export default {
     posts: {
@@ -13,7 +14,15 @@ export default {
             });*/
             let posts;
             return posts = fakeDatabase.getBlogPosts();
-            ;
         }
-    }
+    },
+    post: {
+        type: postType,
+        args: {
+            id: {type: GraphQLInt}
+        },
+        resolve: (_, {id}) => {
+            return fakeDatabase.getBlogPost(id);
+        }
+    },
 }
