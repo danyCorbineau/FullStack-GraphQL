@@ -7,12 +7,20 @@ describe('GET /', () => {
     const query_string = `{
       posts{
       title
-    }
+        author{
+            id
+            name
+            email      
+        }
+      }
     }`
     response  = await  request(app)
       .post('/graphql').send({ query:  query_string})
     console.log(response.body);
+    //test title blog
     expect(response.body.data.posts[0].title).toBe("My first blog post")
+    //test author name blog
+    expect(response.body.data.posts[0].author.name).toBe("Xavier Decuyper")
     console.log(response.body)
     })
 

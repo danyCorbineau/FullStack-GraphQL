@@ -2,12 +2,23 @@ import {GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLList} from "grap
 import {fakeDatabase} from './FakeDatabase';
 import {GraphQLInt} from "graphql/type";
 
-// Define the User type
+// Define the Author type
+const authorType = new GraphQLObjectType({
+    name: 'Author',
+    fields: {
+        id: {type: GraphQLString},
+        name: {type: GraphQLString},
+        email: {type: GraphQLString},
+    }
+});
+
+// Define the Post type
 const postType = new GraphQLObjectType({
     name: 'Post',
     fields: {
         id: {type: GraphQLInt},
         title: {type: GraphQLString},
+        author: {type: authorType, resolve:(parent) => {return fakeDatabase.getAuthor(parent.author)}},
     }
 });
 
@@ -17,11 +28,13 @@ const queryType = new GraphQLObjectType({
     fields: {
         posts: {
             type: new GraphQLList(postType),
-            // args: {
-            //     id: { type: GraphQLString }
-            // },
             resolve: (_, {}) => {
-                return fakeDatabase.getBlogPosts();
+                /*let posts = fakeDatabase.getBlogPosts();
+                posts.forEach((post) => {
+                    post.author = fakeDatabase.getAuthor(post.author)
+                });*/
+                let posts;
+                return posts = fakeDatabase.getBlogPosts();;
             }
         },
         post: {
