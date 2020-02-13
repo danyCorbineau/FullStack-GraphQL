@@ -45,6 +45,15 @@ const queryType = new GraphQLObjectType({
             resolve: (_, {id}) => {
                 return fakeDatabase.getBlogPost(id);
             }
+        },
+        author: {
+            type: authorType,
+            args: {
+                id: {type: GraphQLString}
+            },
+            resolve: (_,{id}) => {
+                return fakeDatabase.getAuthor(id);
+            }
         }
     }
 });

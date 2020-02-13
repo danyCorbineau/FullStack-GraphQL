@@ -42,7 +42,20 @@ describe('GET /', () => {
     expect(response.body.data.post.title).toBe("My first blog post")
     //test author name blog
     expect(response.body.data.post.author.name).toBe("Xavier Decuyper")
-    console.log(response.body)
+  })
+
+  test('get the author with id : 0beb564c and email adam@awesomeblog.com', async () =>{
+    const query_string = `{
+      author(id: "0beb564c"){
+      email
+    }
+    }`
+    response  = await  request(app)
+        .post('/graphql').send({ query:  query_string})
+    console.log(response.body);
+    expect(response.body.data.author.email).toBe("adam@awesomeblog.com")
+    //test author name blog
+    //expect(response.body.data.post.author.name).toBe("Xavier Decuyper")
   })
 
 });
